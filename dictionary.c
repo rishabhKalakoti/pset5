@@ -25,6 +25,9 @@ typedef struct node
 // define root;
 node* root;
 
+// size of dictionary
+int book_size;
+
 /**
  * Returns true if word is in dictionary else false.
  */
@@ -69,10 +72,10 @@ bool check(const char* word)
 
 bool load(const char* dictionary)
 {
-    // TODO
+    
     // open the dictionary
     FILE* book = fopen(dictionary, "r");
-    
+    book_size = 0;
     if (book == NULL)
     {
         printf("Could not open the dictionary file.\n");
@@ -139,6 +142,7 @@ bool load(const char* dictionary)
                 trav = root;
                 // printf("%s\n", word);
                 i = 0;
+                book_size++;
             }
     }
     return true;
@@ -149,8 +153,8 @@ bool load(const char* dictionary)
  */
 unsigned int size(void)
 {
-    // TODO
-    return 0;
+    
+    return book_size;
 }
 
 /**
