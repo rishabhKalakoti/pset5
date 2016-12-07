@@ -145,6 +145,7 @@ bool load(const char* dictionary)
             book_size++;
         }
     }
+    
     return true;
 }
 
@@ -177,6 +178,5 @@ bool unload(void)
 {
 
     freeit(root);
-    
     return true;
 }
