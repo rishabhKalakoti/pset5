@@ -30,9 +30,37 @@ node* root;
  */
 bool check(const char* word)
 {
+    int wlen = strlen(word);
+    node* trav = root;
     
+    for (int i = 1; i < wlen; i++)
+    {
+        int index = (word[i - 1] == '\'') ? 26 : word[i - 1] - 'a';
+        
+        if (trav -> children[index] == NULL)
+        {
+            return false;
+        }
+        else
+        {
+            trav = trav -> children[index];
+        }
+    }
     
-    return false;   // mispelled
+    int index = (word[wlen - 1] == '\'') ? 26 : word[wlen - 1] - 'a';
+    
+    if (trav -> children[index] == NULL)
+    {
+        return false;
+    }
+    
+    trav = trav -> children[index];
+    if (trav -> is_word != true)
+    {
+        
+        return false;
+    }
+    return true;   // not mispelled
 }
 
 /**
@@ -56,6 +84,11 @@ bool load(const char* dictionary)
     root = malloc(sizeof(node));
     node* trav = root;
     
+    for(int k = 0; k < 27; k++)
+    {
+        trav -> children[k] = NULL;
+    }
+    
     if(trav == NULL)
     {
         return false;
@@ -76,20 +109,17 @@ bool load(const char* dictionary)
                 int wlen = strlen(word);
                 
                 
-                for(int k = 0; k < 27; k++)
-                {
-                    trav -> children[k] = NULL;
-                }
                 
                 // int flag = 0;
                 
                 for(int j = 0; j < wlen; j++)
                 {
-                    int index = (word[j] == '\'')?26:word[j] - 'a';
+                    int index = (word[j] == '\'') ? 26 : word[j] - 'a';
                     node* newNode = NULL;
                     if(trav -> children[index] == NULL)
                     {
                         newNode = malloc(sizeof(node));
+                        
                         for(int k = 0; k < 27; k++)
                         {
                             newNode -> children[k] = NULL;
@@ -107,7 +137,7 @@ bool load(const char* dictionary)
                 // assign is_word as true;
                 trav -> is_word = true;
                 trav = root;
-                printf("%s\n", word);
+                // printf("%s\n", word);
                 i = 0;
             }
     }
