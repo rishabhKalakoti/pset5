@@ -24,6 +24,7 @@ bool check(const char* word);
 /**
  * Loads dictionary into memory.  Returns true if successful else false.
  */
+
 bool load(const char* dictionary);
 
 /**
